@@ -73,7 +73,7 @@ const FlipCountdown = (props) => {
 
     const processClock = () => {
         const then = moment(endAt);
-        let value = moment.duration(then.diff(moment()));
+        const value = moment.duration(then.diff(moment()));
 
         if (value.milliseconds() < 0) {
             setCompleted(true);
@@ -270,23 +270,25 @@ const FlipCountdown = (props) => {
         const [prevValue] = data.prevValue;
         const part1 = parseInt(value / 10);
         const part2 = parseInt(value % 10);
-        let prev1 = parseInt(prevValue / 10);
-        let prev2 = parseInt(prevValue % 10);
+        const prev1 = parseInt(prevValue / 10);
+        const prev2 = parseInt(prevValue % 10);
 
         return (
             <span className='flip-countdown-piece' ref={data.ref}>
-                {'top' === titlePosition && (
-                    <span className='flip-countdown-title'>{ props[`${key}Title`] || data.title}</span>
+                {titlePosition === 'top' && (
+                    <span className='flip-countdown-title'>
+                        {props[`${key}Title`] || data.title}
+                    </span>
                 )}
                 <span className='flip-countdown-card'>
-                    <span className={`flip-countdown-card-sec one`}>
+                    <span className='flip-countdown-card-sec one'>
                         <span className='card__top'>{part1}</span>
                         <span className='card__bottom' data-value={prev1} />
                         <span className='card__back' data-value={prev1}>
                             <span className='card__bottom' data-value={part1} />
                         </span>
                     </span>
-                    <span className={`flip-countdown-card-sec two`}>
+                    <span className='flip-countdown-card-sec two'>
                         <span className='card__top'>{part2}</span>
                         <span className='card__bottom' data-value={prev2} />
                         <span className='card__back' data-value={prev2}>
@@ -294,8 +296,10 @@ const FlipCountdown = (props) => {
                         </span>
                     </span>
                 </span>
-                {'bottom' === titlePosition && (
-                    <span className='flip-countdown-title'>{data.title}</span>
+                {titlePosition === 'bottom' && (
+                    <span className='flip-countdown-title'>
+                        {props[`${key}Title`] || data.title}
+                    </span>
                 )}
             </span>
         );
@@ -372,12 +376,12 @@ FlipCountdown.propTypes = {
      * Change year's title.
      */
     yearTitle: PropsType.string,
-    
+
     /**
      * Change month's title.
      */
     monthTitle: PropsType.string,
-    
+
     /**
      * Change day's title.
      */
@@ -393,7 +397,7 @@ FlipCountdown.propTypes = {
     /**
      * Change second's title.
      */
-    secondTitle: PropsType.string,
+    secondTitle: PropsType.string
 };
 
 export default FlipCountdown;
